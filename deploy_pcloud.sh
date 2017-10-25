@@ -46,8 +46,8 @@ function install() {
 
   echo "Installing GET PCLOUD Action"
   cd actions/pcloud-get-action
-  npm install
-  zip -rq action.zip *
+#  npm install
+#  zip -rq action.zip *
   wsk action create pcloud/pcloud-get -i \
     --kind nodejs:6 action.zip \
     --web true
@@ -61,13 +61,13 @@ function uninstall() {
   echo -e "Uninstalling..."
 
   echo "Removing API actions..."
-  wsk api delete /v1
+  wsk api delete /v1 -i
 
-  echo "Removing actions..."
-  wsk action delete pcloud/pcloud-get
+   echo "Removing actions..."
+  wsk action delete pcloud/pcloud-get -i
 
   echo "Removing package..."
-  wsk package delete pcloud
+  wsk package delete pcloud -i
 
   echo -e "Uninstall Complete"
 }

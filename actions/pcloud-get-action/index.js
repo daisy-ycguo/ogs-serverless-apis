@@ -53,26 +53,33 @@ function myAction(params) {
        ' COMP.developmode AS developmode, ' +
        ' COMP.SUB_APP_TYPE AS subapp_type, ' +
        ' ENV.ENV_ALIAS AS env_alias, ' +
-       ' decode (COMP_ENV.apply_type, ' +
-              ' \'grey\', ' +
-               ' \'Grey\', ' +
-               ' \'dr\', ' +
-               ' \'Dr\', ' +
-               ' \'grey_dr\', ' +
-               ' \'Grey_Dr\', ' +
-               ' \'Normal\') ' +
-          ' AS apply_type, ' +
+/**
+" decode (COMP_ENV.apply_type, " +
+              " 'grey', " +
+               " 'Grey', " +
+               " 'dr', " +
+               " 'Dr', " +
+               " 'grey_dr', " +
+               " 'Grey_Dr', " +
+               " 'Normal') " +
+          " AS apply_type, " +
+*/
        ' APP.ID AS app_id, ' +
        ' PROT.NAME AS profile_name, ' +
        ' PROT.ID AS profileid, ' +
-       ' TO_CHAR (COMP_ENV.CREATED_DATE, \'yyyy-MM-dd HH24:mi:ss\') ' +
+/**      
+ " TO_CHAR (COMP_ENV.CREATED_DATE, 'yyyy-MM-dd HH24:mi:ss') " +
+*/
+ " date_format (COMP_ENV.CREATED_DATE, '%Y-%m-%d') " +
           ' AS apply_created_date, ' +
+
+
        ' COMP_ENV.ID AS comp_id, ' +
        ' VM.HOSTNAME AS hostname, ' +
        ' VM.BUSINESSIP AS businessip, ' +
        ' COMP_ENV.RSC_TYPE AS rsc_type, ' +
-       ' COMP.CONTEXT AS context, ' +
-       ' CASE lower ( ' +
+       ' COMP.CONTEXT AS context ' +
+/** ' CASE lower ( ' +
                ' xmlcast ( ' +
                   ' xmlquery (\'$xml/profile/product/text()\' ' +
                             ' PASSING prot.property AS \'xml\') AS VARCHAR (2000))) ' +
@@ -90,6 +97,7 @@ function myAction(params) {
              ' prot.ports ' +
        ' END ' +
          ' AS ports ' +
+*/
   ' FROM COMP_ENVIROMENT_T COMP_ENV ' +
         ' INNER JOIN APPLICATION_T APP ON APP.ID = COMP_ENV.APPLICATION_ID ' +
        ' INNER JOIN COMPONENT_T COMP ON COMP.ID = COMP_ENV.COMPONENT_ID ' +
@@ -101,8 +109,13 @@ function myAction(params) {
 ' ORDER BY APP.NAME, ' +
          ' COMP.NAME, ' +
          ' ENV.ENV_ALIAS, ' +
-         ' VM.HOSTNAME ';
-      var result = connection.query(queryText);
+         ' VM.HOSTNAME ' +
+' limit 10 '
+;
+/**
+queryText = 'select * from COMP_ENVIROMENT_T limit 10';
+*/     
+ var result = connection.query(queryText);
       connection.end();      
       return result;
     }).then(function(result) {

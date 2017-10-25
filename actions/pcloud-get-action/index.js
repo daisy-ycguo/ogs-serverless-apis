@@ -44,64 +44,64 @@ function myAction(params) {
  *      var queryText = 'SELECT * FROM cats WHERE id=?';
  *      var result = connection.query(queryText, [params.id]);
  */
-      var queryText = ' SELECT DISTINCT
-       APP.NAME AS app_name,
-       COMP.NAME AS comp_name,
-       COMP_ENV.ENVIROMENT_ID,
-       APP.LAST_UPDATED_BY AS app_last_updated_by,
-       COMP_ENV.LAST_UPDATED_DATE AS last_updated_date,
-       COMP.developmode AS developmode,
-       COMP.SUB_APP_TYPE AS subapp_type,
-       ENV.ENV_ALIAS AS env_alias,
-       decode (COMP_ENV.apply_type,
-               \'grey\',
-               \'Grey\',
-               \'dr\',
-               \'Dr\',
-               \'grey_dr\',
-               \'Grey_Dr\',
-               \'Normal\')
-          AS apply_type,
-       APP.ID AS app_id,
-       PROT.NAME AS profile_name,
-       PROT.ID AS profileid,
-       TO_CHAR (COMP_ENV.CREATED_DATE, \'yyyy-MM-dd HH24:mi:ss\')
-          AS apply_created_date,
-       COMP_ENV.ID AS comp_id,
-       VM.HOSTNAME AS hostname,
-       VM.BUSINESSIP AS businessip,
-       COMP_ENV.RSC_TYPE AS rsc_type,
-       COMP.CONTEXT AS context,
-       CASE lower (
-               xmlcast (
-                  xmlquery (\'$xml/profile/product/text()\'
-                            PASSING prot.property AS "xml") AS VARCHAR (2000)))
-          WHEN \'tomcat\'
-          THEN
-             xmlcast (
-                xmlquery (\'$xml/profile/defaultPort/text()\'
-                          PASSING prot.property AS "xml") AS VARCHAR (2000))
-          WHEN \'was\'
-          THEN
-             xmlcast (
-                xmlquery (\'$xml/profile/wasDefaultPort/text()\'
-                          PASSING prot.property AS "xml") AS VARCHAR (2000))
-          ELSE
-             prot.ports
-       END
-          AS ports
-  FROM COMP_ENVIROMENT_T COMP_ENV
-       INNER JOIN APPLICATION_T APP ON APP.ID = COMP_ENV.APPLICATION_ID
-       INNER JOIN COMPONENT_T COMP ON COMP.ID = COMP_ENV.COMPONENT_ID
-       INNER JOIN ENVIROMENT_T ENV ON ENV.ID = COMP_ENV.ENVIROMENT_ID
-       LEFT JOIN COMPONENT_PROFILE_T COMP_PROFILE
-          ON COMP_ENV.ID = COMP_PROFILE.COMP_ENVIROMENT_ID
-       LEFT JOIN PROFILE_T PROT ON PROT.ID = COMP_PROFILE.PROFILE_ID
-       LEFT JOIN VIRTUAL_MACHINE_T VM ON VM.ID = PROT.VM_ID
-ORDER BY APP.NAME,
-         COMP.NAME,
-         ENV.ENV_ALIAS,
-         VM.HOSTNAME
+      var queryText = ' SELECT DISTINCT ' +
+       ' APP.NAME AS app_name, ' +
+       ' COMP.NAME AS comp_name, ' +
+       ' COMP_ENV.ENVIROMENT_ID, ' +
+       ' APP.LAST_UPDATED_BY AS app_last_updated_by, ' +
+       ' COMP_ENV.LAST_UPDATED_DATE AS last_updated_date, ' +
+       ' COMP.developmode AS developmode, ' +
+       ' COMP.SUB_APP_TYPE AS subapp_type, ' +
+       ' ENV.ENV_ALIAS AS env_alias, ' +
+       ' decode (COMP_ENV.apply_type, ' +
+              ' \'grey\', ' +
+               ' \'Grey\', ' +
+               ' \'dr\', ' +
+               ' \'Dr\', ' +
+               ' \'grey_dr\', ' +
+               ' \'Grey_Dr\', ' +
+               ' \'Normal\') ' +
+          ' AS apply_type, ' +
+       ' APP.ID AS app_id, ' +
+       ' PROT.NAME AS profile_name, ' +
+       ' PROT.ID AS profileid, ' +
+       ' TO_CHAR (COMP_ENV.CREATED_DATE, \'yyyy-MM-dd HH24:mi:ss\') ' +
+          ' AS apply_created_date, ' +
+       ' COMP_ENV.ID AS comp_id, ' +
+       ' VM.HOSTNAME AS hostname, ' +
+       ' VM.BUSINESSIP AS businessip, ' +
+       ' COMP_ENV.RSC_TYPE AS rsc_type, ' +
+       ' COMP.CONTEXT AS context, ' +
+       ' CASE lower ( ' +
+               ' xmlcast ( ' +
+                  ' xmlquery (\'$xml/profile/product/text()\' ' +
+                            ' PASSING prot.property AS "xml") AS VARCHAR (2000))) ' +
+          ' WHEN \'tomcat\' ' +
+          ' THEN ' +
+             ' xmlcast ( ' +
+                ' xmlquery (\'$xml/profile/defaultPort/text()\' ' +
+                          ' PASSING prot.property AS "xml") AS VARCHAR (2000)) ' +
+          ' WHEN \'was\' ' +
+          ' THEN ' +
+             ' xmlcast ( ' +
+                ' xmlquery (\'$xml/profile/wasDefaultPort/text()\' ' +
+                          ' PASSING prot.property AS "xml") AS VARCHAR (2000)) ' +
+           ' ELSE ' +
+             ' prot.ports ' +
+       ' END ' +
+         ' AS ports ' +
+  ' FROM COMP_ENVIROMENT_T COMP_ENV ' +
+        ' INNER JOIN APPLICATION_T APP ON APP.ID = COMP_ENV.APPLICATION_ID ' +
+       ' INNER JOIN COMPONENT_T COMP ON COMP.ID = COMP_ENV.COMPONENT_ID ' +
+       ' INNER JOIN ENVIROMENT_T ENV ON ENV.ID = COMP_ENV.ENVIROMENT_ID ' +
+       ' LEFT JOIN COMPONENT_PROFILE_T COMP_PROFILE ' +
+        '  ON COMP_ENV.ID = COMP_PROFILE.COMP_ENVIROMENT_ID ' +
+       ' LEFT JOIN PROFILE_T PROT ON PROT.ID = COMP_PROFILE.PROFILE_ID ' +
+       ' LEFT JOIN VIRTUAL_MACHINE_T VM ON VM.ID = PROT.VM_ID ' +
+' ORDER BY APP.NAME, ' +
+         ' COMP.NAME, ' +
+         ' ENV.ENV_ALIAS, ' +
+         ' VM.HOSTNAME ' +
 ');
       connection.end();      
       return result;

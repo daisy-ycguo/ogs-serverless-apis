@@ -75,17 +75,17 @@ function myAction(params) {
        ' CASE lower ( ' +
                ' xmlcast ( ' +
                   ' xmlquery (\'$xml/profile/product/text()\' ' +
-                            ' PASSING prot.property AS \"xml\") AS VARCHAR (2000))) ' +
+                            ' PASSING prot.property AS \'xml\') AS VARCHAR (2000))) ' +
           ' WHEN \'tomcat\' ' +
           ' THEN ' +
              ' xmlcast ( ' +
                 ' xmlquery (\'$xml/profile/defaultPort/text()\' ' +
-                          ' PASSING prot.property AS \"xml\") AS VARCHAR (2000)) ' +
+                          ' PASSING prot.property AS \'xml\') AS VARCHAR (2000)) ' +
           ' WHEN \'was\' ' +
           ' THEN ' +
              ' xmlcast ( ' +
                 ' xmlquery (\'$xml/profile/wasDefaultPort/text()\' ' +
-                          ' PASSING prot.property AS \"xml\") AS VARCHAR (2000)) ' +
+                          ' PASSING prot.property AS \'xml\') AS VARCHAR (2000)) ' +
            ' ELSE ' +
              ' prot.ports ' +
        ' END ' +

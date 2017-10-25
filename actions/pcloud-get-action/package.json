@@ -1,0 +1,14 @@
+{
+	"name": "get-pcloud-action",
+	"description": "Node OpenWhisk action to get a pcloud by ID from a MySQL database",
+	"license": "Apache-2.0",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/IBM/openwhisk-serverless-apis.git"
+	},
+	"version": "1.0.0",
+	"main": "index.js",
+  "dependencies": {
+		"promise-mysql": "3.0.1"
+	}
+}

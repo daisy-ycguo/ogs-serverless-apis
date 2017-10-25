@@ -101,8 +101,7 @@ function myAction(params) {
 ' ORDER BY APP.NAME, ' +
          ' COMP.NAME, ' +
          ' ENV.ENV_ALIAS, ' +
-         ' VM.HOSTNAME ' +
-');
+         ' VM.HOSTNAME ');
       connection.end();      
       return result;
     }).then(function(result) {

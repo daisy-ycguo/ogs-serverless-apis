@@ -41,15 +41,15 @@ function install() {
   #    -s $BLUEMIX_NAMESPACE \
   #    --apikey $BLUEMIX_APIKEY
 
-  wsk property set --apihost openwhisk.ng.bluemix.net
-  wsk property set --auth 2ca7718c-f5f4-41f5-983a-722d63f96298:9HHklUbPfCRlQbwLjEXg2QkEROHkeX9bNOULPr9aD2JDAsIgeO040cpxjXO4GVgS
-  wsk property set --namespace szwwliao_dev -i
+  #wsk property set --apihost openwhisk.ng.bluemix.net
+  #wsk property set --auth 2ca7718c-f5f4-41f5-983a-722d63f96298:9HHklUbPfCRlQbwLjEXg2QkEROHkeX9bNOULPr9aD2JDAsIgeO040cpxjXO4GVgS
+  #wsk property set --namespace szwwliao_dev -i
 
 
   # Edit these to match your Bluemix credentials (needed to provision the API Gateway)
-  #wsk property set --apihost https://10.63.89.111:30427
-  #wsk property set --auth 789c46b1-71f6-4ed5-8c54-816aa4f8c502:abczO3xZCLrMN6v2BKK1dXYFpXlPkccOFqm12CdAsMgRU4VrNZ9lyGVCGuMDGIwP
-  #wsk property set --namespace whisk.system -i
+  wsk property set --apihost https://10.63.89.111:30427
+  wsk property set --auth 789c46b1-71f6-4ed5-8c54-816aa4f8c502:abczO3xZCLrMN6v2BKK1dXYFpXlPkccOFqm12CdAsMgRU4VrNZ9lyGVCGuMDGIwP
+  wsk property set --namespace whisk.system -i
 
   echo -e "\n"
 
@@ -62,7 +62,7 @@ function install() {
 
   echo "Installing POST Counter Action"
   cd actions/counter-post-action
-  npm install
+#  npm install
   zip -rq action.zip *
   wsk action create counter/counter-post -i \
     --kind nodejs:6 action.zip \
@@ -72,7 +72,7 @@ function install() {
 
   echo "Installing increase 1 Counter Action"
   cd actions/counter-inc1-action
-  npm install
+ # npm install
   zip -rq action.zip *
   wsk action create counter/counter-inc1 -i \
     --kind nodejs:6 action.zip \
@@ -82,7 +82,7 @@ function install() {
 
   echo "Installing PUT Counter Action"
   cd actions/counter-put-action
-  npm install
+  #npm install
   zip -rq action.zip *
   wsk action create counter/counter-put -i \
     --kind nodejs:6 action.zip \
@@ -92,7 +92,7 @@ function install() {
 
   echo "Installing GET Counter Action"
   cd actions/counter-get-action
-  npm install
+  #npm install
   zip -rq action.zip *
   wsk action create counter/counter-get -i \
     --kind nodejs:6 action.zip \
@@ -102,7 +102,7 @@ function install() {
 
   echo "Installing DELETE Counter Action"
   cd actions/counter-delete-action
-  npm install
+ # npm install
   zip -rq action.zip *
   wsk action create counter/counter-delete -i \
     --kind nodejs:6 action.zip \

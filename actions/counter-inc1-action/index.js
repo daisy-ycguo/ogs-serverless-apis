@@ -45,16 +45,28 @@ function myAction(params) {
       console.log('Increasing the counters');
       //var queryText = 'SELECT * FROM counters2 WHERE name=?';
       //var insertText = 'INSERT INTO counters2 (name, count) VALUES(?, 1)';
-      var queryText = 'UPDATE counters2 SET count=count+1 WHERE name in ';
-      var names = '('+params.names+')';
-      console.log(params.names);
-      console.log(names);
-      queryText = queryText + names;
-      console.log(queryText);
-      var result = connection.query(queryText);
+      // var queryText = 'UPDATE counters2 SET count=count+1 WHERE name in ';
+      // var names = '('+params.names+')';
+      // console.log(params.names);
+      // console.log(names);
+      // queryText = queryText + names;
+      // console.log(queryText);
+      // var result = connection.query(queryText);
+
+      var str = params.names;
+      var insert = str.split(",").map(function (val) { 
+            console.log(val);
+            //var insertText = 'INSERT IGNORE INTO `counters2` SET `name` = '+val+', `count` = 1';
+            var insertText = 'INSERT INTO `counters2` (name, count) VALUES('+val+', 1) ON DUPLICATE KEY UPDATE count = count + 1';
+            console.log(insertText);
+            connection.query(insertText);
+
+      });
+
+
       connection.end();
-      return result;
-    }).then(function(result) {
+      return insert;
+    }).then(function(insert) {
       resolve({
         statusCode: 200,
         headers: {
@@ -62,7 +74,7 @@ function myAction(params) {
         },
         body: {
           success: "Counters increased 1.",
-          value: result
+          value: insert
         }
       });
     }).catch(function(error) {

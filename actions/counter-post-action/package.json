@@ -1,0 +1,14 @@
+{
+	"name": "post-counter-action",
+	"description": "Node OpenWhisk action to add a counter to a MySQL database",
+	"license": "Apache-2.0",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/IBM/openwhisk-serverless-apis.git"
+	},
+	"version": "1.0.0",
+	"main": "index.js",
+	"dependencies": {
+		"promise-mysql": "3.0.1"
+	}
+}

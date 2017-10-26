@@ -16,13 +16,13 @@
 
 
 /**
- * This action increase 1 a Counter by key in a MySQL Database
+ * This action increase 1 of the Counters by names in a MySQL Database
  *
  * @param   params.MYSQL_HOSTNAME    MySQL hostname
  * @param   params.MYSQL_USERNAME    MySQL username
  * @param   params.MYSQL_PASSWORD    MySQL password
  * @param   params.MYSQL_DATABASE    MySQL database
- * @param   params.key               Key of the counter to increase 1 into the table
+ * @param   params.names             Names of the counters to increase 1 into the table
 
  * @return  Promise for the MySQL result
  */
@@ -39,19 +39,30 @@ function myAction(params) {
       database: params.MYSQL_DATABASE
     }).then(function(conn) {
       connection = conn;
-      console.log('Updating the counter');
-      var queryText = 'UPDATE counters SET value=value+1 WHERE key=?';
-      var update = connection.query(queryText, [params.value, params.key]);
+      console.log('Creating table if it does not exist');
+      return connection.query('CREATE TABLE IF NOT EXISTS `counters2` (`name` VARCHAR(128) PRIMARY KEY, `count` INT NOT NULL)');
+    }).then(function() {
+      console.log('Increasing the counters');
+      //var queryText = 'SELECT * FROM counters2 WHERE name=?';
+      //var insertText = 'INSERT INTO counters2 (name, count) VALUES(?, 1)';
+      var queryText = 'UPDATE counters2 SET count=count+1 WHERE name in ';
+      var names = '('+params.names+')';
+      console.log(params.names);
+      console.log(names);
+      queryText = queryText + names;
+      console.log(queryText);
+      var result = connection.query(queryText);
       connection.end();
-      return update;
-    }).then(function(update) {
+      return result;
+    }).then(function(result) {
       resolve({
         statusCode: 200,
         headers: {
           'Content-Type': 'application/json'
         },
         body: {
-          success: "Counter increased 1."
+          success: "Counters increased 1.",
+          value: result
         }
       });
     }).catch(function(error) {

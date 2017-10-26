@@ -5,6 +5,6 @@ if [ "$#" -ne 1 ]; then
     exit
 fi
 
-COUNTER_API_URL=`wsk api list | tail -1 | awk '{print $5}'`
+COUNTER_API_URL=`wsk api list -i | tail -1 | awk '{print $5}'`
 
 curl ${COUNTER_API_URL}?name=${1}

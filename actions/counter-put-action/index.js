@@ -41,7 +41,7 @@ function myAction(params) {
     }).then(function(conn) {
       connection = conn;
       console.log('Updating the counter');
-      var queryText = 'UPDATE counters SET count=? WHERE name=?';
+      var queryText = 'UPDATE counters2 SET count=? WHERE name=?';
       var update = connection.query(queryText, [params.count, params.name]);
       connection.end();
       return update;

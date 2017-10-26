@@ -40,7 +40,7 @@ function myAction(params) {
     }).then(function(conn) {
       connection = conn;
       console.log('Querying');
-      var queryText = 'DELETE FROM counters WHERE name=?';
+      var queryText = 'DELETE FROM counters2 WHERE name=?';
       var result = connection.query(queryText, [params.name]);
       connection.end();
       return result;

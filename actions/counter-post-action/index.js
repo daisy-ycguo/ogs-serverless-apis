@@ -41,10 +41,10 @@ function myAction(params) {
     }).then(function(conn) {
       connection = conn;
       console.log('Creating table if it does not exist');
-      return connection.query('CREATE TABLE IF NOT EXISTS `counters` (`name` VARCHAR(128) PRIMARY KEY, `count` VARCHAR(256) NOT NULL)');
+      return connection.query('CREATE TABLE IF NOT EXISTS `counters2` (`name` VARCHAR(128) PRIMARY KEY, `count` INT NOT NULL)');
     }).then(function() {
       console.log('Inserting the counter');
-      var queryText = 'INSERT INTO counters (name, count) VALUES(?, ?)';
+      var queryText = 'INSERT INTO counters2 (name, count) VALUES(?, ?)';
       var insert = connection.query(queryText, [params.name, params.count]);
       connection.end();
       return insert;
@@ -55,8 +55,8 @@ function myAction(params) {
           'Content-Type': 'application/json'
         },
         body: {
-          key: insert.key,
-          value: insert.value
+          key: insert.name,
+          value: insert.count
         }
       });
     }).catch(function(error) {

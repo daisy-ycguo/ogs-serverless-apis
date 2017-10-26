@@ -70,6 +70,16 @@ function install() {
   wsk api create -i -n "Counter API" /v1 /counter POST counter/counter-post
   cd ../..
 
+  echo "Installing increase 1 Counter Action"
+  cd actions/counter-inc1-action
+  npm install
+  zip -rq action.zip *
+  wsk action create counter/counter-inc1 -i \
+    --kind nodejs:6 action.zip \
+    --web true
+  wsk api create -i -n "Counter API" /v1 /counter POST counter/counter-inc1
+  cd ../..
+
   echo "Installing PUT Counter Action"
   cd actions/counter-put-action
   npm install
@@ -111,6 +121,7 @@ function uninstall() {
 
   echo "Removing actions..."
   wsk action delete -i counter/counter-post
+  wsk action delete -i counter/counter-inc1
   wsk action delete -i counter/counter-put
   wsk action delete -i counter/counter-get
   wsk action delete -i counter/counter-delete

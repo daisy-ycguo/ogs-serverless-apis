@@ -54,6 +54,10 @@ function install() {
   wsk api create -i -n "pcloud API" /v1 /pcloud GET pcloud/pcloud-get
   cd ../..
 
+  cd actions/java-pcloud-actions
+  wsk action create pcloud/java-get JavaQuery.jar --main Query -i
+  cd ../..
+
   echo -e "Install Complete"
 }
 
@@ -63,8 +67,9 @@ function uninstall() {
   echo "Removing API actions..."
   wsk api delete /v1 -i
 
-   echo "Removing actions..."
+  echo "Removing actions..."
   wsk action delete pcloud/pcloud-get -i
+  wsk action delete pcloud/java-get -i
 
   echo "Removing package..."
   wsk package delete pcloud -i

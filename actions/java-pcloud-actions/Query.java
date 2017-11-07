@@ -78,7 +78,7 @@ public class Query {
 			         " ENV.ENV_ALIAS, " +
 			         " VM.HOSTNAME " +
 			" limit 10 ";*/
-             return "select * from cats";
+             return "select * from pets";
 	}
 	
 	private static JsonElement resultSet2JsonElement(ResultSet results) throws SQLException {

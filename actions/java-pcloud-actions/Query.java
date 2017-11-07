@@ -2,6 +2,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import java.sql.*;
+import com.mysql.jdbc.Driver;
 
 public class Query {
 	public static JsonObject main(JsonObject args) {
@@ -14,8 +15,8 @@ public class Query {
 
 		try {
 			// create our mysql database connection
-			String myDriver = "org.gjt.mm.mysql.Driver";
-			String myUrl = "jdbc:mysql://"+host+"/"+database;
+			String myDriver = "com.mysql.jdbc.Driver";
+			String myUrl = "jdbc:mysql://"+host+"/cats";
 			Class.forName(myDriver);
 			Connection conn = DriverManager.getConnection(myUrl, user, password);
 
@@ -46,7 +47,7 @@ public class Query {
 	}
 	
 	private static String getQuerystr() {
-		return " SELECT DISTINCT " +
+	/*	return " SELECT DISTINCT " +
 			       " APP.NAME AS app_name, " +
 			       " COMP.NAME AS comp_name, " +
 			       " COMP_ENV.ENVIROMENT_ID, " +
@@ -76,7 +77,8 @@ public class Query {
 			         " COMP.NAME, " +
 			         " ENV.ENV_ALIAS, " +
 			         " VM.HOSTNAME " +
-			" limit 10 ";
+			" limit 10 ";*/
+             return "select * from cats";
 	}
 	
 	private static JsonElement resultSet2JsonElement(ResultSet results) throws SQLException {

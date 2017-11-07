@@ -39,7 +39,7 @@ public class Query {
 			
 		} catch (Exception e) {
 			System.err.println("Got an exception! ");
-			System.err.println(e.getMessage());
+                        e.printStackTrace();
 			response.addProperty("msg","error");
 		}
 

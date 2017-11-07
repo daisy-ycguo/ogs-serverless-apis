@@ -16,7 +16,7 @@ public class Query {
 		try {
 			// create our mysql database connection
 			String myDriver = "com.mysql.jdbc.Driver";
-			String myUrl = "jdbc:mysql://"+host+"/cats";
+			String myUrl = "jdbc:mysql://"+host+"/cats?useSSL=false";
 			Class.forName(myDriver);
 			Connection conn = DriverManager.getConnection(myUrl, user, password);
 

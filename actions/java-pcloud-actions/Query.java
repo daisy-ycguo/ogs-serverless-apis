@@ -16,7 +16,7 @@ public class Query {
 		try {
 			// create our mysql database connection
 			String myDriver = "com.mysql.jdbc.Driver";
-			String myUrl = "jdbc:mysql://"+host+"/cats?useSSL=false";
+			String myUrl = "jdbc:mysql://"+host+"/"+database+"?useSSL=false";
 			Class.forName(myDriver);
 			Connection conn = DriverManager.getConnection(myUrl, user, password);
 
@@ -47,7 +47,7 @@ public class Query {
 	}
 	
 	private static String getQuerystr() {
-	/*	return " SELECT DISTINCT " +
+		return " SELECT DISTINCT " +
 			       " APP.NAME AS app_name, " +
 			       " COMP.NAME AS comp_name, " +
 			       " COMP_ENV.ENVIROMENT_ID, " +
@@ -77,8 +77,7 @@ public class Query {
 			         " COMP.NAME, " +
 			         " ENV.ENV_ALIAS, " +
 			         " VM.HOSTNAME " +
-			" limit 10 ";*/
-             return "select * from pets";
+			" limit 10 ";
 	}
 	
 	private static JsonElement resultSet2JsonElement(ResultSet results) throws SQLException {

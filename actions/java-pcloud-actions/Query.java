@@ -47,7 +47,7 @@ public class Query {
 	}
 	
 	private static String getQuerystr() {
-		return " SELECT DISTINCT " +
+/*		return " SELECT DISTINCT " +
 			       " APP.NAME AS app_name, " +
 			       " COMP.NAME AS comp_name, " +
 			       " COMP_ENV.ENVIROMENT_ID, " +
@@ -77,7 +77,8 @@ public class Query {
 			         " COMP.NAME, " +
 			         " ENV.ENV_ALIAS, " +
 			         " VM.HOSTNAME " +
-			" limit 10 ";
+			" limit 10 ";*/
+             return "select component_id,enviroment_id,application_id from comp_enviroment_t limit 10";
 	}
 	
 	private static JsonElement resultSet2JsonElement(ResultSet results) throws SQLException {
